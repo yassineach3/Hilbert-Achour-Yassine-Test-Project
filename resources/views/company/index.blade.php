@@ -70,7 +70,7 @@
                                             <button type="submit" class="btn btn-primary btn-sm">Update</button>
                                             {!!Form::close() !!}
 
-                                            {!!Form::open(['route' => ['videos/delete',$company->id], 'method'=>'DELETE'])!!}
+                                            {!!Form::open(['route' => ['company/delete',$company->id], 'method'=>'DELETE'])!!}
                                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                             {!!Form::close() !!}
                                         </td>

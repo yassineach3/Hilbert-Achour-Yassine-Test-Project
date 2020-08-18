@@ -75,9 +75,11 @@ class CompanyController extends Controller
      * @param  \App\company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(company $company)
+    public function edit($id)
     {
-        //
+        $company = Company::where('id', $id)->firstOrFail();
+        session()->flash('update','You will update your company');
+        return view('company.edit',['company'=>$company]);
     }
 
     /**
@@ -87,9 +89,12 @@ class CompanyController extends Controller
      * @param  \App\company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, company $company)
+    public function update(Request $request, $id)
     {
-        //
+        Company::where('id', $id)->firstOrFail()->update($request->all());
+        session()->flash('updated_successfuly', 'Your company is updated succssesfuly');
+        return redirect()->route('companies');
+
     }
 
     /**

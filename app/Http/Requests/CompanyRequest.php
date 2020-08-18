@@ -25,7 +25,7 @@ class CompanyRequest extends FormRequest
     {
         return [
             'email' => 'required|email|max:255|unique:companies',
-            'phone' => 'required|min:11|numeric|unique:companies',
+            'phone' => 'required|min:11|unique:companies',
         ];
     }
 }
