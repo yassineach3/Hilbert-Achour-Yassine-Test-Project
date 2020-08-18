@@ -20,3 +20,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/companies', 'CompanyController@index')->name('companies');
+Route::get('company/create', 'CompanyController@create')->name('company/create');
+Route::post('company', 'CompanyController@store')->name('company');
+
+Route::get('edit/{id}', 'CompanyController@edit')->name('edit');
+Route::put('videos/update/{id}', 'CompanyController@update')->name('videos/update');
+Route::delete('videos/delete/{id}', 'CompanyController@destroy')->name('videos/delete');
+
+

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\company;
+use App\Company;
+use App\Http\Requests\CompanyRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CompanyController extends Controller
 {
@@ -14,7 +16,14 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        $companies = Company::all();
+        if (Company::all()->isEmpty()) {
+            session()->flash('company_error','You have no company yet! ');
+            return view('videos.index');
+        }
+        $data = ['companies'=>$companies];
+        return view('company.index', $data);
+
     }
 
     /**
@@ -24,7 +33,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('company.create');
     }
 
     /**
@@ -33,9 +42,20 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
-        //
+        $company = new Company();
+        $company->name = $request->name;
+        $company->email = $request->email;
+        $company->address = $request->address;
+        $company->phone = $request->phone;
+        $company->website = $request->website;
+        $company->save();
+
+        session()->flash('company_saved','You have successfuly saved your company :)');
+
+        return redirect()->route('companies');
+
     }
 
     /**
@@ -78,8 +98,12 @@ class CompanyController extends Controller
      * @param  \App\company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(company $company)
+    public function destroy($id)
     {
-        //
+        $company = Company::where('id', $id)->firstOrFail();
+        $company->delete();
+        session()->flash('company_deleted','You have successfuly deleted the company');
+        return back();
+
     }
 }
