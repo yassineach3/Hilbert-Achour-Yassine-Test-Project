@@ -19,9 +19,9 @@ class CreateEmployeesTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('designation');
-            $table->string('adress');
+            $table->string('address');
             $table->string('email')->unique();
-            $table->smallInteger('phone');
+            $table->string('phone');
             $table->unsignedBigInteger('company');
             $table->foreign('company')->references('id')->on('companies');
             $table->rememberToken();

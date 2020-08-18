@@ -11,6 +11,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+//        factory(\App\User::class, 3)->create();
         DB::table('users')->insert([
             'name' => 'admin',
             'email' => 'admin@admin.com',

@@ -14,7 +14,14 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $videos = Auth::user()->myVideos;
+        if ($videos->isEmpty()) {
+            session()->flash('video_error','You have no video to show, ');
+            return view('videos.index');
+        }
+        $data = ['videos'=>$videos];
+        return view('videos.index', $data);
+
     }
 
     /**

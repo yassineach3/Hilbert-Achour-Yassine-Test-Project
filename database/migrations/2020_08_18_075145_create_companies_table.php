@@ -17,8 +17,8 @@ class CreateCompaniesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('adress');
-            $table->smallInteger('phone');
+            $table->string('address');
+            $table->string('phone');
             $table->string('website');
             $table->rememberToken();
             $table->timestamps();
