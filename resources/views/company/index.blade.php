@@ -78,6 +78,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            <?php echo $companies->render(); ?>
                         </div>
                     </div>
                 @endisset

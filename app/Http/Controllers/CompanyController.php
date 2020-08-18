@@ -16,7 +16,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::all();
+        $companies = Company::paginate(5);
         if (Company::all()->isEmpty()) {
             session()->flash('company_error','You have no company yet! ');
             return view('videos.index');
