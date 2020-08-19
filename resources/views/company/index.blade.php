@@ -66,7 +66,7 @@
                                             <a href="{{$company->website}}">{{$company->website}}</a>
                                         </td>
                                         <td>
-                                            {!!Form::open(['route' => ['edit',$company->id], 'method'=>'GET'])!!}
+                                            {!!Form::open(['route' => ['edit/company',$company->id], 'method'=>'GET'])!!}
                                             <button type="submit" class="btn btn-primary btn-sm">Update</button>
                                             {!!Form::close() !!}
 

@@ -48,7 +48,7 @@
                         <a class="nav-link" href="{{ url('companies')}}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
                             Companies <span class="caret"></span>
                         </a>
-                        <a class="nav-link" href="{{ url('articles')}}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <a class="nav-link" href="{{ url('employees')}}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
                             Employees <span class="caret"></span>
                         </a>
 

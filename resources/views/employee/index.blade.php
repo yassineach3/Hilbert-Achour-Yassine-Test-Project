@@ -9,14 +9,14 @@
                         {{ session('status') }}
                     </div>
                 @endif
-                @if (session('video_saved'))
+                @if (session('employee_saved'))
                     <div class="alert alert-success" role="alert">
-                        {{ session('video_saved') }}
+                        {{ session('employee_saved') }}
                     </div>
                 @endif
-                @if (session('video_deleted'))
+                @if (session('employee_deleted'))
                     <div class="alert alert-success" role="alert">
-                        {{ session('video_deleted') }}
+                        {{ session('employee_deleted') }}
                     </div>
                 @endif
                 @if (session('updated_successfuly'))
@@ -34,50 +34,53 @@
                 @endif
                 <div class="card border-0 shadow mb-4">
                     <div class="card-body d-flex">
-                        <h5 class="m-0">All companies</h5>
-                        <a href="{{ url('company/create')}}" role="button" class="btn btn-outline-primary ml-auto">
-                            Add new company
+                        <h5 class="m-0">All employees</h5>
+                        <a href="{{ url('employee/create')}}" role="button" class="btn btn-outline-primary ml-auto">
+                            Add new employee
                             <i class="fa fa-plus-square"></i>
                         </a>
                     </div>
                 </div>
-                @isset ($companies)
+                @isset ($employees)
                     <div class="card">
-                        <div class="card-header">List of all your companies</div>
+                        <div class="card-header">List of all your employees</div>
                         <div class="card-body">
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">First name</th>
+                                    <th scope="col">Last name</th>
+                                    <th scope="col">Designation</th>
                                     <th scope="col">Address</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">Phone</th>
-                                    <th scope="col">Website</th>
+                                    <th scope="col">Company</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($companies as $company)
+                                @foreach($employees as $employee)
                                     <tr>
-                                        <th scope="row">{{$company->name}}</th>
-                                        <td>{{$company->email}}</td>
-                                        <td>{{$company->address}}</td>
-                                        <td>{{$company->phone}}</td>
+                                        <th scope="row">{{$employee->firstname}}</th>
+                                        <th scope="row">{{$employee->lastname}}</th>
+                                        <td>{{$employee->designation}}</td>
+                                        <td>{{$employee->address}}</td>
+                                        <td>{{$employee->email}}</td>
+                                        <td>{{$employee->phone}}</td>
+                                        <td>{{$employee->company}}</td>
                                         <td>
-                                            <a href="{{$company->website}}">{{$company->website}}</a>
-                                        </td>
-                                        {{--                                        <td>--}}
-                                        {{--                                            {!!Form::open(['route' => ['edit',$company->id], 'method'=>'GET'])!!}--}}
-                                        {{--                                            <button type="submit" class="btn btn-primary btn-sm">Update</button>--}}
-                                        {{--                                            {!!Form::close() !!}--}}
+                                            {!!Form::open(['route' => ['edit/employee',$employee->id], 'method'=>'GET'])!!}
+                                            <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                            {!!Form::close() !!}
 
-                                        {{--                                            {!!Form::open(['route' => ['videos/delete',$company->id], 'method'=>'DELETE'])!!}--}}
-                                        {{--                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>--}}
-                                        {{--                                            {!!Form::close() !!}--}}
-                                        {{--                                        </td>--}}
+                                            {!!Form::open(['route' => ['employee/delete',$employee->id], 'method'=>'DELETE'])!!}
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            {!!Form::close() !!}
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
+                            <?php echo $employees->render(); ?>
                         </div>
                     </div>
                 @endisset

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\employee;
+use App\Company;
+use App\Employee;
+use App\Http\Requests\EmployeeRequest;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -14,13 +16,13 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $videos = Auth::user()->myVideos;
-        if ($videos->isEmpty()) {
-            session()->flash('video_error','You have no video to show, ');
-            return view('videos.index');
+        $employees = Employee::paginate(5);
+        if (Employee::all()->isEmpty()) {
+            session()->flash('employee_error','You have no employee yet! ');
+            return view('employee.index');
         }
-        $data = ['videos'=>$videos];
-        return view('videos.index', $data);
+        $data = ['employees'=>$employees];
+        return view('employee.index', $data);
 
     }
 
@@ -31,7 +33,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view('employee.create', ['compaines' => Company::all('id')]);
     }
 
     /**
@@ -40,9 +42,21 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
-        //
+        $employee = new Employee();
+        $employee->firstname = $request->firstname;
+        $employee->lastname = $request->lastname;
+        $employee->designation = $request->designation;
+        $employee->email = $request->email;
+        $employee->address = $request->address;
+        $employee->phone = $request->phone;
+        $employee->company = $request->company;
+        $employee->save();
+
+        session()->flash('employee_saved','You have successfuly saved your employee :)');
+
+        return redirect()->route('employees');
     }
 
     /**
@@ -62,9 +76,11 @@ class EmployeeController extends Controller
      * @param  \App\employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function edit(employee $employee)
+    public function edit($id)
     {
-        //
+        $employee = Employee::where('id', $id)->firstOrFail();
+        session()->flash('update','You will update your employee');
+        return view('employee.edit',['employee'=>$employee, 'compaines' => Company::all('id')]);
     }
 
     /**
@@ -74,9 +90,11 @@ class EmployeeController extends Controller
      * @param  \App\employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, employee $employee)
+    public function update(Request $request, $id)
     {
-        //
+        Employee::where('id', $id)->firstOrFail()->update($request->all());
+        session()->flash('updated_successfuly', 'Your employee is updated succssesfuly');
+        return redirect()->route('employees');
     }
 
     /**
@@ -85,8 +103,12 @@ class EmployeeController extends Controller
      * @param  \App\employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(employee $employee)
+    public function destroy($id)
     {
-        //
+        $employee = Employee::where('id', $id)->firstOrFail();
+        $employee->delete();
+        session()->flash('employee_deleted','You have successfuly deleted the employee');
+        return back();
+
     }
 }

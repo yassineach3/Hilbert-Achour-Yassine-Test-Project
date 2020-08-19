@@ -37,12 +37,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function myEmployees(){
-        return $this->hasMany(employee::class, 'user_id', 'id');
-    }
-
-    public function myCompanies(){
-        return $this->hasMany(company::class, 'user_id', 'id');
-    }
-
 }

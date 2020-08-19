@@ -1,46 +1,86 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-    <div class="container">
-        <div class="row justify-content-center">
+    <title>Laravel</title>
 
-            <div class="col-md-9">
-                <div class="card d-block shadow-lg rounded mb-4">
-                    @isset ($videos)
-                        <div class="card-header">List of all the companies</div>
-                        <div class="card-body">
-                            @if (session('status'))
-                                <div class="alert alert-success" role="alert">
-                                    {{ session('status') }}
-                                </div>
-                            @endif
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Link</th>
-                                    <th scope="col">Description</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-                                @foreach($videos as $video)
-                                    <tr>
-                                        <th scope="row">{{$video->title}}</th>
-                                        <td>
-                                            <a href="{{$video->link}}">{{$video->link}}</a>
-                                        </td>
-                                        <td>{{$video->description}}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @else
-                        <div class="card-header">No Data !</div>
-                    @endisset
-                </div>
-            </div>
+    <!-- Styles -->
+    <style>
+        html, body {
+            background-color: #fff;
+            color: #636b6f;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 200;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .full-height {
+            height: 100vh;
+        }
+
+        .flex-center {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        .position-ref {
+            position: relative;
+        }
+
+        .top-right {
+            position: absolute;
+            right: 10px;
+            top: 18px;
+        }
+
+        .content {
+            text-align: center;
+        }
+
+        .title {
+            font-size: 84px;
+        }
+
+        .links > a {
+            color: #636b6f;
+            padding: 0 25px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .m-b-md {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+<div class="flex-center position-ref full-height">
+    @if (Route::has('login'))
+        <div class="top-right links">
+            @auth
+                <a href="{{ url('/companies') }}">Companies</a>
+                <a href="{{ url('/employees') }}">Employees</a>
+            @else
+                <a href="{{ route('login') }}">Login</a>
+            @endauth
+        </div>
+    @endif
+
+    <div class="content">
+        <div class="title m-b-md">
+            Hilbert Achour Yassine Test Project
         </div>
     </div>
-@endsection
+</div>
+</body>
+</html>
